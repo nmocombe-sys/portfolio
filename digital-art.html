@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Art</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .gallery-body {
+            background-color: #000000 !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-btn.gallery-nav {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 10005;
+        }
+
+        /* 1. SINGLE FULLSCREEN SLIDESHOW WINDOW */
+        .slideshow-window {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Exactly one screen height */
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Slide Frames (Hidden by default, shown via JavaScript class) */
+        .gallery-slide {
+            display: none; 
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+        }
+
+        .gallery-slide.active-slide {
+            display: flex !important; /* Only shows the currently selected picture */
+        }
+
+        .gallery-img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            box-sizing: border-box;
+        }
+
+        .cleanleaners-image {
+            transform: rotate(180deg);
+        }
+
+        /* DESKTOP CLICK ARROWS */
+/* DESKTOP CLICK ARROWS */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none; /* Removes the circle background color entirely */
+            color: rgba(255, 255, 255, 0.6); /* Makes the arrow slightly translucent by default */
+            font-size: 48px; /* Boosts the arrow size a bit since the circle is gone */
+            border: none; /* Removes the border ring */
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10002;
+            user-select: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Makes the standalone arrow turn bright white and grow slightly when hovered */
+        .nav-arrow:hover {
+            background: none; /* Keeps background transparent on hover */
+            color: #ffffff; /* Pops to solid white */
+            transform: translateY(-50%) scale(1.1); 
+        }
+       /* INVISIBLE CLICK NAV ZONES */
+        .click-zone {
+            position: absolute;
+            top: 0;
+            width: 50%; /* Splits the screen perfectly in half */
+            height: 100%;
+            z-index: 10002; /* Sits on top of the image but below your back-button */
+            cursor: pointer;
+            background: transparent; /* Makes it completely invisible */
+            -webkit-tap-highlight-color: transparent; /* Prevents gray flashes on mobile browsers */
+        }
+
+        /* Positions the left zone to cover the left 50% of the screen */
+        .left-zone {
+            left: 0;
+        }
+
+        /* Positions the right zone to cover the right 50% of the screen */
+        .right-zone {
+            right: 0;
+        }
+
+        
+
+        .left-arrow { left: 40px; }
+        .right-arrow { right: 40px; }
+
+        /* Caption system mechanics */
+        .caption-system {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .faint-arrow {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 28px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            animation: arrowBlink 3s ease-in-out infinite;
+        }
+
+        .caption-drawer {
+            width: 100%;
+            max-height: 0; 
+            overflow: hidden;
+            background-color: rgba(20, 20, 20, 0.95);
+            transition: max-height 0.4s ease;
+            text-align: left;
+        }
+
+        .caption-drawer-content { padding: 20px 40px 30px 40px; }
+        .caption-drawer h3 { color: #ffffff; font-size: 20px; margin: 0 0 8px 0; font-family: -apple-system, sans-serif; }
+        .caption-drawer p { color: #bbbbbb; font-size: 14px; margin: 0; font-family: -apple-system, sans-serif; }
+
+        .caption-system:hover .caption-drawer { max-height: 20vh; }
+
+        .floating-text-box {
+            position: absolute;
+            right: 90px;
+            bottom: 90px;
+            max-width: 300px;
+            padding: 12px 16px;
+            background-color: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(17, 17, 17, 0.35);
+            color: #111111;
+            font-size: 14px;
+            line-height: 1.5;
+            font-family: "Geist", "Geist Mono", "Arial Narrow", Arial, sans-serif;
+            font-weight: 500;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+            outline: none;
+            z-index: 10003;
+            white-space: normal;
+        }
+
+        .floating-text-box:empty:before {
+            content: "Insert text here";
+            color: rgba(17, 17, 17, 0.65);
+        }
+
+        @keyframes arrowBlink { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+
+        /* 2. THE THUMBNAIL MATRIX GRID SECTION */
+        .grid-section-container {
+            background-color: #000000;
+            padding: 80px 40px 120px 40px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .grid-section-title {
+            color: #ffffff;
+            font-family: -apple-system, sans-serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .photo-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid-thumbnail-link {
+            display: block;
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            overflow: hidden;
+            border-radius: 0px;
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .grid-thumbnail-link:hover {
+            transform: scale(1.02);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .grid-thumb-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="gallery-body">
+
+    <div class="slideshow-window" id="top-view">
+        
+            <div class="click-zone left-zone" onclick="changeSlide(-1)"></div>
+            <div class="click-zone right-zone" onclick="changeSlide(1)"></div>
+
+        <div class="gallery-slide active-slide">
+            <img src="insta-photos/ss1.PNG" alt="SS 1" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 1</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss2.PNG" alt="SS 2" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 2</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss3.PNG" alt="SS 3" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 3</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss4.PNG" alt="SS 4" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 4</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss5.PNG" alt="SS 5" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 5</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss6.PNG" alt="SS 6" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 6</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss7.PNG" alt="SS 7" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 7</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss8.PNG" alt="SS 8" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 8</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss9.PNG" alt="SS 9" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 9</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss10.PNG" alt="SS 10" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 10</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss11.PNG" alt="SS 11" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 11</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss12.PNG" alt="SS 12" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 12</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss13.PNG" alt="SS 13" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 13</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss14.PNG" alt="SS 14" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 14</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss15.PNG" alt="SS 15" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 15</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss16.PNG" alt="SS 16" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 16</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss17.PNG" alt="SS 17" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 17</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss18.PNG" alt="SS 18" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 18</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss19.PNG" alt="SS 19" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 19</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss20.PNG" alt="SS 20" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 20</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss21.PNG" alt="SS 21" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 21</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss22.PNG" alt="SS 22" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 22</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss23.PNG" alt="SS 23" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 23</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss24.PNG" alt="SS 24" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 24</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss25.jpeg" alt="SS 25" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 25</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss26.PNG" alt="SS 26" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 26</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+        <div class="gallery-slide">
+            <img src="insta-photos/ss27.PNG" alt="SS 27" class="gallery-img">
+            <div class="caption-system"><div class="caption-drawer"><div class="caption-drawer-content"><h3>SS 27</h3><p>Selected photo</p></div></div></div>
+        </div>
+
+    </div>
+
+    <section class="grid-section-container">
+       
+        
+        <div class="photo-matrix-grid">
+            
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(0)">
+                <img src="insta-photos/ss1.PNG" class="grid-thumb-img" alt="SS 1 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(1)">
+                <img src="insta-photos/ss2.PNG" class="grid-thumb-img" alt="SS 2 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(2)">
+                <img src="insta-photos/ss3.PNG" class="grid-thumb-img" alt="SS 3 thumb">
+            </div>
+
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(3)">
+                <img src="insta-photos/ss4.PNG" class="grid-thumb-img" alt="SS 4 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(4)">
+                <img src="insta-photos/ss5.PNG" class="grid-thumb-img" alt="SS 5 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(5)">
+                <img src="insta-photos/ss6.PNG" class="grid-thumb-img" alt="SS 6 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(6)">
+                <img src="insta-photos/ss7.PNG" class="grid-thumb-img" alt="SS 7 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(7)">
+                <img src="insta-photos/ss8.PNG" class="grid-thumb-img" alt="SS 8 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(8)">
+                <img src="insta-photos/ss9.PNG" class="grid-thumb-img" alt="SS 9 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(9)">
+                <img src="insta-photos/ss10.PNG" class="grid-thumb-img" alt="SS 10 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(10)">
+                <img src="insta-photos/ss11.PNG" class="grid-thumb-img" alt="SS 11 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(11)">
+                <img src="insta-photos/ss12.PNG" class="grid-thumb-img" alt="SS 12 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(12)">
+                <img src="insta-photos/ss13.PNG" class="grid-thumb-img" alt="SS 13 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(13)">
+                <img src="insta-photos/ss14.PNG" class="grid-thumb-img" alt="SS 14 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(14)">
+                <img src="insta-photos/ss15.PNG" class="grid-thumb-img" alt="SS 15 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(15)">
+                <img src="insta-photos/ss16.PNG" class="grid-thumb-img" alt="SS 16 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(16)">
+                <img src="insta-photos/ss17.PNG" class="grid-thumb-img" alt="SS 17 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(17)">
+                <img src="insta-photos/ss18.PNG" class="grid-thumb-img" alt="SS 18 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(18)">
+                <img src="insta-photos/ss19.PNG" class="grid-thumb-img" alt="SS 19 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(19)">
+                <img src="insta-photos/ss20.PNG" class="grid-thumb-img" alt="SS 20 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(20)">
+                <img src="insta-photos/ss21.PNG" class="grid-thumb-img" alt="SS 21 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(21)">
+                <img src="insta-photos/ss22.PNG" class="grid-thumb-img" alt="SS 22 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(22)">
+                <img src="insta-photos/ss23.PNG" class="grid-thumb-img" alt="SS 23 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(23)">
+                <img src="insta-photos/ss24.PNG" class="grid-thumb-img" alt="SS 24 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(24)">
+                <img src="insta-photos/ss25.jpeg" class="grid-thumb-img" alt="SS 25 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(25)">
+                <img src="insta-photos/ss26.PNG" class="grid-thumb-img" alt="SS 26 thumb">
+            </div>
+            <div class="grid-thumbnail-link" onclick="jumpToSlide(26)">
+                <img src="insta-photos/ss27.PNG" class="grid-thumb-img" alt="SS 27 thumb">
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.gallery-slide');
+
+        slides.forEach((slide) => {
+            const noteBox = document.createElement('div');
+            noteBox.className = 'floating-text-box';
+            noteBox.setAttribute('contenteditable', 'true');
+            noteBox.setAttribute('spellcheck', 'false');
+            noteBox.textContent = 'Insert text here';
+            slide.appendChild(noteBox);
+        });
+
+        function changeSlide(direction) {
+            slides[currentSlideIndex].classList.remove('active-slide');
+            currentSlideIndex += direction;
+
+            if (currentSlideIndex >= slides.length) { currentSlideIndex = 0; }
+            if (currentSlideIndex < 0) { currentSlideIndex = slides.length - 1; }
+
+            slides[currentSlideIndex].classList.add('active-slide');
+        }
+
+        function jumpToSlide(targetIndex) {
+            slides[currentSlideIndex].classList.remove('active-slide');
+            currentSlideIndex = targetIndex;
+            slides[currentSlideIndex].classList.add('active-slide');
+            
+            document.getElementById('top-view').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+    <script src="cursor-trail.js"></script>
+</body>
+
+    <nav class="site-nav-stack">
+        <details class="menu-dropdown">
+        <summary id="pages-toggle" class="menu-toggle">Pages</summary>
+        <div class="menu-links">
+            <a id="link-who-is-this-guy" href="index.html" class="nav-btn">Who is this guy?</a>
+            <details class="nav-accordion" data-accordion="artwork">
+                <summary class="nav-btn">Artwork</summary>
+                <div class="submenu">
+                    <svg class="submenu-guide" viewBox="0 0 12 100" preserveAspectRatio="none" aria-hidden="true"><path d="M6 0 V100"></path></svg>
+                    <a href="photography.html" class="nav-btn">Photography</a>
+                    <a href="art-interventions.html" class="nav-btn">Art Interventions</a>
+                    <a href="" class="nav-btn">Graphic Design</a>
+                    <a href="digital-art.html" class="nav-btn">Digital Art</a>
+                    <a href="written-works.html" class="nav-btn">Written Works</a>
+                </div>
+            </details>
+            <a id="link-communications" href="work-experience.html" class="nav-btn">Work Experience</a>
+            <details class="nav-accordion" data-accordion="areas-of-interest">
+                <summary class="nav-btn">Areas of Interest</summary>
+                <div class="submenu">
+                    <svg class="submenu-guide" viewBox="0 0 12 100" preserveAspectRatio="none" aria-hidden="true"><path d="M6 0 V100"></path></svg>
+                    <a href="workin-hard.html" class="nav-btn">Workin' Hard</a>
+                    <a href="hardly-workin.html" class="nav-btn">Hardly Workin'</a>
+                </div>
+            </details>
+        </div>
+        </details>
+    </nav>
+</html>

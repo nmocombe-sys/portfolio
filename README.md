@@ -1,0 +1,3 @@
+Whenever you add new pictures, you have to paste them into the folder `original_images` and then run the command `python3 convert.py`. Then, the converted images are going to be in the folder `images`. Any exisitng pictures in `images` are not going to be reconverted, so don't worry. But in the case where you want to delete pictures from the website, have to delete them form both `images` and `original_images`. Otherwise, those old pictures in `original_pictures` will be reconverted and re-added to `images`.
+
+If you read some of the top of the file `convert.py`, it will tell you what you can change to either further decrease the size of the images or to keep the quality higher.

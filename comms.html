@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Experience</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background-color: #000000 !important;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            font-family: "Geist", "Geist Mono", "Arial Narrow", Arial, sans-serif;
+        }
+
+       .back-btn.gallery-nav {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 10005;
+        }
+
+        .pro-comm-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 140px 40px 100px 40px;
+            box-sizing: border-box;
+        }
+
+        .page-header {
+            margin-bottom: 80px;
+            text-align: center; /* Centers the main page header text */
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+            color: #EC133E;
+        }
+
+        /* 3-Image Single Column Layout (Bigger presentation than grid view) */
+        .showcase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 90px; /* Generous vertical spacing between the 3 elements */
+        }
+
+        .showcase-card {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers the image frame and text block alignment horizontally */
+            gap: 24px;
+        }
+
+        /* Large Picture Framing */
+        .showcase-media-frame {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            border-radius: 0;
+            background-color: #111111;
+            border: 1px solid #ffffff;
+            box-shadow: none;
+        }
+
+        .showcase-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 59%;
+        }
+
+        /* About-Page Typography Matching Framework */
+        .showcase-text-block {
+            max-width: 850px;
+            text-align: center; /* Centers the heading text and paragraphs */
+        }
+
+        .showcase-text-block h2 {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0 0 12px 0;
+            color: #EC133E;
+            letter-spacing: 0.5px;
+        }
+
+        .showcase-text-block p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #bbbbbb;
+            margin: 0;
+            font-family: "Geist", "Geist Mono", "Arial Narrow", Arial, sans-serif;
+        }
+
+        .showcase-link {
+            color: #EC133E;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="site-nav-stack">
+        <details class="menu-dropdown">
+        <summary id="pages-toggle" class="menu-toggle">Pages</summary>
+        <div class="menu-links">
+            <a id="link-who-is-this-guy" href="index.html" class="nav-btn">Who is this guy?</a>
+            <details class="nav-accordion" data-accordion="artwork">
+                <summary class="nav-btn">Artwork</summary>
+                <div class="submenu">
+                    <svg class="submenu-guide" viewBox="0 0 12 100" preserveAspectRatio="none" aria-hidden="true"><path d="M6 0 V100"></path></svg>
+                    <a href="photography.html" class="nav-btn">Photography</a>
+                    <a href="art-interventions.html" class="nav-btn">Art Interventions</a>
+                    <a href="" class="nav-btn">Graphic Design</a>
+                    <a href="digital-art.html" class="nav-btn">Digital Art</a>
+                    <a href="written-works.html" class="nav-btn">Written Works</a>
+                </div>
+            </details>
+            <a id="link-communications" href="work-experience.html" class="nav-btn">Work Experience</a>
+            <details class="nav-accordion" data-accordion="areas-of-interest">
+                <summary class="nav-btn">Areas of Interest</summary>
+                <div class="submenu">
+                    <svg class="submenu-guide" viewBox="0 0 12 100" preserveAspectRatio="none" aria-hidden="true"><path d="M6 0 V100"></path></svg>
+                    <a href="workin-hard.html" class="nav-btn">Workin' Hard</a>
+                    <a href="hardly-workin.html" class="nav-btn">Hardly Workin'</a>
+                </div>
+            </details>
+        </div>
+        </details>
+    </nav>
+
+
+    <div class="pro-comm-container">
+        
+        <header class="page-header">
+            <h1>Work Experience</h1>
+        </header>
+
+        <main class="showcase-list">
+
+            <article class="showcase-card">
+                <div class="showcase-media-frame">
+                    <img src="comms-pics/bowdoin-comms.JPG" alt="Project Showcase 1" class="showcase-img">
+                </div>
+                <div class="showcase-text-block">
+                    <h2>Bowdoin College</h2>
+                    <p>In 2023 was personally selected by the Dean of Students at Bowdoin to work with the College’s Communications Office as a multimedia correspondent. Since then, I’ve met weekly with the President and SVP of Communications to ensure consistent messaging between students, staff, faculty, and the border community. I’ve grown as a communicator, editor, and storyteller. I’m proud to say that the content I’ve produced has been the most engaged on the college’s social media channels to date. If you’d like to learn more about my work, I’ve left a <a href="comms-pics/nm-selected-works.pdf" target="_blank" rel="noopener noreferrer" class="showcase-link">brief sample of my experience here</a>.</p>
+                </div>
+            </article>
+
+
+            <article class="showcase-card">
+                <div class="showcase-media-frame">
+                    <img src="comms-pics/APR.jpeg" alt="Project Showcase 2" class="showcase-img">
+                </div>
+                <div class="showcase-text-block">
+                    <h2>AgentryPR</h2>
+                    <p>I worked with AgentryPR as a summer intern in the fashion marketing and business development division. In my role, I aided in the ideation of marketing campaigns for brands including but not limited to Cadillac, Mclaren, Onitsuka Tiger, Abercrombie and Fitch, Diesel, and Uniqlo. On the fashion side, I packed, pulled, and delivered couture pieces to celebrities like Ariana Grande, Lady Gaga, Flo Milli, Sabrina Carpenter, Jannet Jackson, Kim Kardashian.</p>
+                </div>
+            </article>
+
+
+            <article class="showcase-card">
+                <div class="showcase-media-frame">
+                    <img src="comms-pics/GPR.JPG" alt="Project Showcase 3" class="showcase-img">
+                </div>
+                <div class="showcase-text-block">
+                    <h2>GriffinPR</h2>
+                    <p>Since 2024, I have worked closely with Sara Griffin at GriffinPR as an architecture and design intern. I proactively handled administrative and logistical tasks around the office, in addition to creating a database for associates at the firm to quickly identify relevant writers to cover client events. Clients include but not limited to the Smithsonian Museum, Google, Brooklyn Botanic, Virta, AM Collective, Caline Chagoury Moudaber, and Reddymade Design.</p>
+                </div>
+            </article>
+
+            <article class="showcase-card">
+                <div class="showcase-media-frame">
+                    <img src="comms-pics/Moth.jpg" alt="The Moth" class="showcase-img">
+                </div>
+                <div class="showcase-text-block">
+                    <h2>The Moth</h2>
+                    <p>I’m currently working as a Production Intern for The Moth, a global storytelling organization headquartered in New York City. I handle daily administrative tasks, contribute to the ideation for upcoming StorySLAMs and coordinate with regional producers around the world in order to make the power of storytelling more democratic. I’m grateful to have worked with clients/venues including but not limited to: the Sydney Opera House, Malcolm Gladwell, the Metropolitan Museum of Art, and the Bill &amp; Melinda Gates Foundation.</p>
+                </div>
+            </article>
+
+        </main>
+    </div>
+
+    <script src="cursor-trail.js"></script>
+</body>
+</html>

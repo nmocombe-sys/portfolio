@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="site-nav-stack">
+        <details class="menu-dropdown">
+        <summary id="pages-toggle" class="menu-toggle">Pages</summary>
+        <div class="menu-links">
+            <a id="link-who-is-this-guy" href="index.html" class="nav-btn">Who is this guy?</a>
+            <details class="nav-accordion" data-accordion="artwork">
+                <summary class="nav-btn">Artwork</summary>
+                <div class="submenu">
+                    <svg class="submenu-guide" viewBox="0 0 12 100" preserveAspectRatio="none" aria-hidden="true"><path d="M6 0 V100"></path></svg>
+                    <a href="photography.html" class="nav-btn">Photography</a>
+                    <a href="art-interventions.html" class="nav-btn">Art Interventions</a>
+                    <a href="" class="nav-btn">Graphic Design</a>
+                    <a href="digital-art.html" class="nav-btn">Digital Art</a>
+                    <a href="written-works.html" class="nav-btn">Written Works</a>
+                </div>
+            </details>
+            <a id="link-communications" href="work-experience.html" class="nav-btn">Work Experience</a>
+            <details class="nav-accordion" data-accordion="areas-of-interest">
+                <summary class="nav-btn">Areas of Interest</summary>
+                <div class="submenu">
+                    <svg class="submenu-guide" viewBox="0 0 12 100" preserveAspectRatio="none" aria-hidden="true"><path d="M6 0 V100"></path></svg>
+                    <a href="workin-hard.html" class="nav-btn">Workin' Hard</a>
+                    <a href="hardly-workin.html" class="nav-btn">Hardly Workin'</a>
+                </div>
+            </details>
+        </div>
+        </details>
+    </nav>
+
+    <div class="about-bg">
+
+        <div class="about-actions bottom-right-anchor">
+            <a class="email-box" href="mailto:black@neiman.cloud">email: black@neiman.cloud</a>
+            <details class="statement-details">
+                <summary class="statement-trigger">Artist Statement</summary>
+                <div class="statement-panel">
+                    <button class="statement-close" type="button" aria-label="Close artist statement">×</button>
+                    <p>I’ve always found artist statements to be ironic. As artists, we yearn for freedom from the constraints of society. By engaging in the practice of art making, I thought I’d be free from the quantitative, standardized world that seems to be closing in around me. As I’ve begun practicing more professionally, however, I’ve learned that things like artists' statements, digital portfolios, and social media presence are somewhat necessary. Although I totally understand the practical use of these standards, I think it’s ironic how creatives have created our own little cages, cages which may hurt more than they help.</p>
+                    <p>If I must describe my works with words, I’ll say my study of religion and art history have informed my work as a <a class="statement-link" href="https://en.wikipedia.org/wiki/Social_practice_(art)" target="_blank" rel="noopener noreferrer">Social Practitioner</a>. I’m interested in context and how it (or lack thereof) can affect audience interpretation/reaction to a given work. By layering historical references within established mediums like (photo, installation, performance, etc) I’m able to expand my own awareness in addition to those people around me.</p>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <div class="news-ticker-container">
+        <div class="ticker-track">
+            <span class="ticker-text">                  First off, I'm not a guy. My name is Neiman Mocombe and I'm a nomadic artist and communications specialist. My work experience has taken me around the Americas, Europe, and Asia. Please feel free to reach out if you'd like to collaborate on a creative assignment.</span>
+        <span class="ticker-text">                      First off, I'm not a guy. My name is Neiman Mocombe and I'm a nomadic artist and communications specialist. My work experience has taken me around the Americas, Europe, and Asia. Please feel free to reach out if you'd like to collaborate on a creative assignment.</span>
+        </div>
+    </div>
+
+    <script>
+        const statementDetails = document.querySelector('.statement-details');
+        const statementClose = document.querySelector('.statement-close');
+
+        statementClose.addEventListener('click', () => {
+            statementDetails.removeAttribute('open');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (statementDetails.open && !statementDetails.contains(event.target)) {
+                statementDetails.removeAttribute('open');
+            }
+        });
+    </script>
+
+</body>
+</html>

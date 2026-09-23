@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifelines</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background-color: #000000 !important;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            font-family: "Geist", "Geist Mono", "Arial Narrow", Arial, sans-serif;
+        }
+
+        .back-btn.gallery-nav {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 10005;
+        }
+
+        .pro-comm-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 140px 40px 100px 40px;
+            box-sizing: border-box;
+        }
+
+        .page-header {
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+            color: #EC133E;
+        }
+
+        .showcase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 90px;
+        }
+
+        .showcase-card {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .showcase-media-frame {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            border-radius: 0;
+            background-color: #111111;
+            border: 1px solid #ffffff;
+            box-shadow: none;
+            display: block;
+        }
+
+        .showcase-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .showcase-text-block {
+            max-width: 850px;
+            text-align: center;
+        }
+
+        .showcase-link {
+            color: #EC133E;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0.2px;
+        }
+
+        .showcase-note {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #f5f5f5;
+            margin: 0;
+            font-family: "Geist", "Geist Mono", "Arial Narrow", Arial, sans-serif;
+        }
+
+        .page-subtitle {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #f5f5f5;
+            font-family: "Geist", "Geist Mono", "Arial Narrow", Arial, sans-serif;
+        }
+
+        .showcase-video-link {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="site-nav-stack">
+        <details class="menu-dropdown">
+        <summary id="pages-toggle" class="menu-toggle">Pages</summary>
+        <div class="menu-links">
+            <a href="index.html" class="nav-btn">Who is this guy?</a>
+            <details class="nav-accordion" data-accordion="artwork">
+                <summary class="nav-btn">Artwork</summary>
+                <div class="submenu">
+                    <a href="photography.html" class="nav-btn">Photography</a>
+                    <a href="art-interventions.html" class="nav-btn">Art Interventions</a>
+                    <a href="digital-art.html" class="nav-btn">Graphic Design</a>
+                    <a href="digital-art.html" class="nav-btn">Digital Art</a>
+                    <a href="written-works.html" class="nav-btn">Written Works</a>
+                </div>
+            </details>
+            <a href="work-experience.html" class="nav-btn">Work Experience</a>
+            <details class="nav-accordion" data-accordion="areas-of-interest">
+                <summary class="nav-btn">Areas of Interest</summary>
+                <div class="submenu">
+                    <a href="workin-hard.html" class="nav-btn">Workin' Hard</a>
+                    <a href="hardly-workin.html" class="nav-btn">Hardly Workin'</a>
+                </div>
+            </details>
+        </div>
+        </details>
+    </nav>
+
+
+    <div class="pro-comm-container">
+        <header class="page-header">
+            <h1>Lifelines</h1>
+            <p class="page-subtitle">[Add short description here]</p>
+        </header>
+
+        <main class="showcase-list">
+
+            <article class="showcase-card">
+                <a href="https://youtu.be/FlYPkLRHeD4?si=N1AWt5JylJf210Kb" target="_blank" rel="noopener noreferrer" class="showcase-video-link">
+                    <div class="showcase-media-frame">
+                        <img src="https://img.youtube.com/vi/FlYPkLRHeD4/hqdefault.jpg" alt="Crazy Amy" class="showcase-img">
+                    </div>
+                </a>
+                <div class="showcase-text-block">
+                    <a href="https://youtu.be/FlYPkLRHeD4?si=N1AWt5JylJf210Kb" target="_blank" rel="noopener noreferrer" class="showcase-link">Crazy Amy</a>
+                    <p class="showcase-note">[Add subtext here]</p>
+                </div>
+            </article>
+
+            <article class="showcase-card">
+                <a href="https://youtu.be/V1zrEGsj234?si=2jxyzqHG27JMJr5q" target="_blank" rel="noopener noreferrer" class="showcase-video-link">
+                    <div class="showcase-media-frame">
+                        <img src="https://img.youtube.com/vi/V1zrEGsj234/hqdefault.jpg" alt="Nothing isReal" class="showcase-img">
+                    </div>
+                </a>
+                <div class="showcase-text-block">
+                    <a href="https://youtu.be/V1zrEGsj234?si=2jxyzqHG27JMJr5q" target="_blank" rel="noopener noreferrer" class="showcase-link">Nothing isReal</a>
+                    <p class="showcase-note">[Add subtext here]</p>
+                </div>
+            </article>
+
+            <article class="showcase-card">
+                <a href="https://smarthistory.org/visual-analysis/?sidebar=the-basics-of-art-history" target="_blank" rel="noopener noreferrer" class="showcase-video-link">
+                    <div class="showcase-media-frame">
+                        <img src="photo-gallery/mallafterrain.JPG" alt="Look Around You" class="showcase-img">
+                    </div>
+                </a>
+                <div class="showcase-text-block">
+                    <a href="https://smarthistory.org/visual-analysis/?sidebar=the-basics-of-art-history" target="_blank" rel="noopener noreferrer" class="showcase-link">Look Around You</a>
+                    <p class="showcase-note">[Add subtext here]</p>
+                </div>
+            </article>
+
+            <article class="showcase-card">
+                <a href="https://youtu.be/Up2LreRBros?si=N6yhmL9R0C45N6aJ" target="_blank" rel="noopener noreferrer" class="showcase-video-link">
+                    <div class="showcase-media-frame">
+                        <img src="https://img.youtube.com/vi/Up2LreRBros/hqdefault.jpg" alt="Gabby Douglas Clutching Up" class="showcase-img">
+                    </div>
+                </a>
+                <div class="showcase-text-block">
+                    <a href="https://youtu.be/Up2LreRBros?si=N6yhmL9R0C45N6aJ" target="_blank" rel="noopener noreferrer" class="showcase-link">Gabby Douglas Clutching Up</a>
+                    <p class="showcase-note">[Add subtext here]</p>
+                </div>
+            </article>
+
+            <article class="showcase-card">
+                <a href="https://youtu.be/pB7Ig6TT3xI?si=Tg4z2vXCJpqoFV1K" target="_blank" rel="noopener noreferrer" class="showcase-video-link">
+                    <div class="showcase-media-frame">
+                        <img src="https://img.youtube.com/vi/pB7Ig6TT3xI/hqdefault.jpg" alt="Our Princess" class="showcase-img">
+                    </div>
+                </a>
+                <div class="showcase-text-block">
+                    <a href="https://youtu.be/pB7Ig6TT3xI?si=Tg4z2vXCJpqoFV1K" target="_blank" rel="noopener noreferrer" class="showcase-link">Our Princess</a>
+                    <p class="showcase-note">[Add subtext here]</p>
+                </div>
+            </article>
+
+            <article class="showcase-card">
+                <a href="https://youtu.be/Mk-hLFKSCgA?si=UF78sgqe5mehq0yy" target="_blank" rel="noopener noreferrer" class="showcase-video-link">
+                    <div class="showcase-media-frame">
+                        <img src="https://img.youtube.com/vi/Mk-hLFKSCgA/hqdefault.jpg" alt="Journey to the Center" class="showcase-img">
+                    </div>
+                </a>
+                <div class="showcase-text-block">
+                    <a href="https://youtu.be/Mk-hLFKSCgA?si=UF78sgqe5mehq0yy" target="_blank" rel="noopener noreferrer" class="showcase-link">Journey to the Center</a>
+                    <p class="showcase-note">[Add subtext here]</p>
+                </div>
+            </article>
+
+            <article class="showcase-card">
+                <a href="https://youtu.be/atvheUNz0Hg?si=OwCJFMw7hYsMe-1E" target="_blank" rel="noopener noreferrer" class="showcase-video-link">
+                    <div class="showcase-media-frame">
+                        <img src="https://img.youtube.com/vi/atvheUNz0Hg/hqdefault.jpg" alt="I’m not engaging" class="showcase-img">
+                    </div>
+                </a>
+                <div class="showcase-text-block">
+                    <a href="https://youtu.be/atvheUNz0Hg?si=OwCJFMw7hYsMe-1E" target="_blank" rel="noopener noreferrer" class="showcase-link">I’m not engaging</a>
+                    <p class="showcase-note">[Add subtext here]</p>
+                </div>
+            </article>
+
+        </main>
+    </div>
+
+    <script src="cursor-trail.js"></script>
+</body>
+</html>
