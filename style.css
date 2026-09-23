@@ -12,7 +12,7 @@ body, html {
 
 /* 2. Fullscreen background and layout shell */
 .fullscreen-bg {
-    background-image: url("nm-photos/face-pic.jpeg");
+    background-image: url("nm-photos/face-pic.webp");
     min-height: 100vh;
     width: 100%;
     background-position: center;
@@ -217,7 +217,7 @@ body, html {
 
 /* 1. Fullscreen picture container */
 .about-bg {
-    background-image: url("nm-photos/face-pic.jpeg");
+    background-image: url("nm-photos/face-pic.webp");
     height: 100vh;
     width: 100%;
     background-position: center;
